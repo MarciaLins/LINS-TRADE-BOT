@@ -14,16 +14,22 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Rota principal
 app.get("/", async (req, res) => {
   try {
-    // Testa conexão com Supabase
-    const { data, error } = await supabase.from("teste").select("*").limit(1);
+    // Busca 5 registros na tabela "teste"
+    const { data, error } = await supabase.from("teste").select("*").limit(5);
 
     if (error) {
       throw error;
     }
 
-    res.send(🤖 Lins Trade Bot ativo e conectado ao Supabase!<br>Exemplo de dados: ${JSON.stringify(data)});
+    res.send(`
+      🤖 Lins Trade Bot ativo e conectado ao Supabase!<br><br>
+      Dados encontrados: ${JSON.stringify(data)}
+    `);
   } catch (err) {
-    res.send(🤖 Lins Trade Bot ativo, mas erro ao conectar no Supabase: ${err.message});
+    res.send(`
+      🤖 Lins Trade Bot ativo, mas erro ao conectar no Supabase:<br>
+      ${err.message}
+    `);
   }
 });
 
